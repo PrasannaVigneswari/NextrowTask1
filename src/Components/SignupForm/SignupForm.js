@@ -8,20 +8,16 @@ import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
-  
   const [formData, setFormData] = useState({
     firstName: '', 
     lastName: '',
     email: '',
     password: '',
   });
-
   const [validationMessages, setValidationMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-
    // Router navigation
   const history = useNavigate();
-
   // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,21 +26,15 @@ const SignupForm = () => {
       [name]: value,
     });
   };
-
-
   const validateEmail = (email) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i; //emailRegex is a regular expression that matches common email address patterns.
     // use .test(email) method checks if the provided email matches the regular expression pattern
     return emailRegex.test(email);
-  }; // If the email matches the pattern, test returns true Otherwise, it returns false.
-  
-  
-
+  }; // If the email matches the pattern, test returns true Otherwise, it returns false. 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     setValidationMessages({});
-
     if (!validateEmail(formData.email)) //check Email adress is valid or not
      {
       setValidationMessages({ email: 'Invalid email address' });// Set an error message for the email field.
@@ -54,9 +44,7 @@ const SignupForm = () => {
      // If the email address is valid, navigate to the Todo-list page with the user's first name.
     }
   };
-
   return (
-
     <>
       <Grid container direction="column" alignItems="center">
         <Avatar sx={{ height: '40px', bgcolor: 'secondary.main', width: '40px', marginTop: '67px' }}>
