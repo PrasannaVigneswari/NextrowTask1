@@ -4,17 +4,15 @@ import Todolist from './Components/Todolist/Todolist';
 import SignupForm from './Components/SignupForm/SignupForm';
 
 function App() {
-  
-  const [loggedIn, setLoggedIn] = useState(false);
+  // Track the user's name
   const [name, setName] = useState('');
 
+  // Function to handle login
   const handleLogin = (username) => {
-    setLoggedIn(true);
     setName(username);
   };
 
   return (
-    
     <div className="App">
       <Router>
         <Routes>
