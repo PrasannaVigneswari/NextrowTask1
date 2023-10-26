@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
+  
   const [formData, setFormData] = useState({
     firstName: '', 
     lastName: '',
@@ -28,31 +29,32 @@ const SignupForm = () => {
   };
   const validateEmail = (email) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i; //emailRegex is a regular expression that matches common email address patterns.
-    // use .test(email) method checks if the provided email matches the regular expression pattern
+  
     return emailRegex.test(email);
-  }; // If the email matches the pattern, test returns true Otherwise, it returns false. 
+  }; // If the email matches the pattern, test returns true Otherwise, it returns false.
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     setValidationMessages({});
+
     if (!validateEmail(formData.email)) //check Email adress is valid or not
      {
       setValidationMessages({ email: 'Invalid email address' });// Set an error message for the email field.
     } 
     else {
       history(`/Todo-list?name=${formData.firstName}`);
+
      // If the email address is valid, navigate to the Todo-list page with the user's first name.
     }
   };
+
   return (
     <>
       <Grid container direction="column" alignItems="center">
         <Avatar sx={{ height: '40px', bgcolor: 'secondary.main', width: '40px', marginTop: '67px' }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography variant="h5" marginTop="20px">
-          Sign in
-        </Typography>
+        <Typography variant="h5" marginTop="20px"> Sign in</Typography>
       </Grid>
 
       <div className="mt-5 mx-auto max-w max-w-sm">
@@ -70,12 +72,10 @@ const SignupForm = () => {
             value={formData.password} onChange={handleChange}/>
           
           <Button type="submit" variant="contained" color="primary" className="text-center" sx={{ mt: 3, width: '48ch' }}>Login</Button>
-        
         </form>
       </div>
     </>
   );
 };
-
 export default SignupForm;
 
