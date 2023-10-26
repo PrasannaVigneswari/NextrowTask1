@@ -95,7 +95,7 @@ const Todolist = () => {
       <h4 className="text-3xl mt-10 mb-5">My Tasks</h4>
        <List>
         {todos.map((todo, index) => (
-          <ListItem key={todo.id} className={`flex items-center bg-cyan-50 rounded mt-5 shadow-md max-w-screen-sm`} >
+          <ListItem key={todo.id} className={`flex items-center bg-cyan-100 rounded mt-5 shadow-md max-w-screen-sm`} >
             <Checkbox onClick={() => toggleCompletion(index)} checked={todo.completed} />
             <span >{todo.title} </span>
             <div className="ml-auto">
