@@ -23,7 +23,7 @@ Design the UI in a user friendly manner and follow the coding conventions.
 ## Description
 
 This project is a web application built using Reactjs ,MUI and Tailwind css. It provides users with the ability to login, and manage their to-do lists.
-Add validation wherever possible like for submitting an empty task or deleting a task accidentally.".
+Add validation wherever possible like for submitting an empty task or deleting a task accidentally.
 
 ## Features
 - User registration with first name, last name, email, and password.
