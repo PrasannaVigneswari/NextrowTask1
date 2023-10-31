@@ -11,14 +11,24 @@
 5. Implement the login button click function and redirect the user to to-do list page - use react router
 6. Display the user name on the to-do list page.
 
-
+5. Implement the login button click function and redirect the user to to-do list page - use react router 
+6. Display the user name on the to-do list page(for time being).
+7. For the todo-list component and allow users to 
+    7.1 Add new tasks
+    7.2 Mark tasks as completed
+    7.3 Delete tasks
+8. Use material-ui components like TextField, Button, Checkbox, and List to create the user interface for adding and displaying tasks and tailwind to style the UI elements
+9. Implement a dynamic tasks list and update it as per the user's actions.
+10. Use local storage to save the tasks data and persist the data even after page refresh.
+11. Add validation wherever possible like for submitting an empty task or deleting a task accidentally.
+Design the UI in a user friendly manner and follow the coding conventions.
 
 ## Description
 
 This project is a web application built using Reactjs ,MUI and Tailwind css. It provides users with the ability to login, and manage their to-do lists.
+Add validation wherever possible like for submitting an empty task or deleting a task accidentally.
 
 ## Features
-
 - User registration with first name, last name, email, and password.
 - Create and add new tasks.
 - Mark tasks as completed.
@@ -26,7 +36,6 @@ This project is a web application built using Reactjs ,MUI and Tailwind css. It 
 - Clear all tasks.
 - Store tasks in the local storage to persist data.
 - greeting with the user's first name.
-
  
 ### Technologies Used
 
@@ -84,8 +93,6 @@ Local Storage:
 Your tasks are stored in the local storage of your web browser, which means they will persist even if you close the application or refresh the page. To clear all stored tasks, use the "Clear" button.
 
 
-4. Personalized Greeting:
-After signing in, you'll see a personalized greeting with your first name at the top.
 
 
 

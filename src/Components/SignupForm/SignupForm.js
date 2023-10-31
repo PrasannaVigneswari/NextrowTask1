@@ -14,7 +14,9 @@ const SignupForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const history = useNavigate();
-
+   // Router navigation
+  const history = useNavigate();
+  // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -44,7 +46,11 @@ const SignupForm = () => {
     return true; // Password is valid
   };
   
-
+  const validateEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i; //emailRegex is a regular expression that matches common email address patterns.
+  
+    return emailRegex.test(email);
+  }; // If the email matches the pattern, test returns true Otherwise, it returns false.
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
@@ -56,6 +62,8 @@ const SignupForm = () => {
       setValidationMessages({ password: 'Invalid password' });
     } else {
       history(`/Todo-list?name=${formData.firstName}`);
+
+     // If the email address is valid, navigate to the Todo-list page with the user's first name
     }
   };
 
@@ -88,5 +96,4 @@ const SignupForm = () => {
     </>
   );
 };
-
 export default SignupForm;
