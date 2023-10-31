@@ -30,11 +30,18 @@ const SignupForm = () => {
       [name]: value,
     });
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     setValidationMessages({});
+
+    const validateEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i; //emailRegex is a regular expression that matches common email address patterns.
+    // use .test(email) method checks if the provided email matches the regular expression pattern
+    return emailRegex.test(email);
+  }; //
 
     if (!validateEmail(formData.email)) {
       //check Email adress is valid or not
