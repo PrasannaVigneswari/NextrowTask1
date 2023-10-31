@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+import { Button, Avatar, Typography, Grid, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
-import './SignupForm.css';
-
+import { validateEmail, validatePassword } from '../../utils/validation';
+ 
 const SignupForm = () => {
   
   const [formData, setFormData] = useState({
@@ -33,26 +29,21 @@ const SignupForm = () => {
   };
 
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i; //emailRegex is a regular expression that matches common email address patterns.
-    // use .test(email) method checks if the provided email matches the regular expression pattern
-    return emailRegex.test(email);
-  }; // If the email matches the pattern, test returns true Otherwise, it returns false.
-  
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     setValidationMessages({});
 
-    if (!validateEmail(formData.email)) //check Email adress is valid or not
+    if (!validateEmail(formData.email)) 
      {
-      setValidationMessages({ email: 'Invalid email address' });// Set an error message for the email field.
+      setValidationMessages({ email: 'Invalid email address' });
+    }
+    else if (!validatePassword(formData.password)) {
+      setValidationMessages({ password: 'password should have atleast 1 capital letter, 1 numeric and 1  special character' });
     } 
     else {
       history(`/Todo-list?name=${formData.firstName}`);
-     // If the email address is valid, navigate to the Todo-list page with the user's first name.
+  
     }
   };
 
@@ -80,7 +71,7 @@ const SignupForm = () => {
           <TextField variant="outlined" label="Email" name="email" required sx={{ m: 1, width: '43ch' }} value={formData.email}
             onChange={handleChange} error={validationMessages.email && isSubmitted} helperText={validationMessages.email} />
           <TextField variant="outlined" label="Password" name="password" required type="password" sx={{ m: 1, width: '43ch' }}
-            value={formData.password} onChange={handleChange}/>
+            value={formData.password} onChange={handleChange}  error={validationMessages.password && isSubmitted} helperText={validationMessages.password}/>
           
           <Button type="submit" variant="contained" color="primary" className="text-center" sx={{ mt: 3, width: '48ch' }}>Login</Button>
         
