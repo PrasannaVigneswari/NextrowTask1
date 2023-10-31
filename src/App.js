@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Todolist from './Components/Todolist/Todolist';
-import SignupForm from './Components/SignupForm/SignupForm';
+import React from "react";
+import Routing from "./routes/Routing";
 
 function App() {
+  return (
+    <>
+      <Routing />
+    </>
   // Track the user's name
   const [name, setName] = useState('');
   // Function to handle login
@@ -22,5 +24,3 @@ return (
   );
 }
 export default App;
-
-

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+import { Button, Avatar, Typography, Grid, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
+import { validateEmail, validatePassword } from '../../utils/validation';
 
 const SignupForm = () => {
   
@@ -37,9 +34,12 @@ const SignupForm = () => {
     setIsSubmitted(true);
     setValidationMessages({});
 
-    if (!validateEmail(formData.email)) //check Email adress is valid or not
+    if (!validateEmail(formData.email)) 
      {
-      setValidationMessages({ email: 'Invalid email address' });// Set an error message for the email field.
+      setValidationMessages({ email: 'Invalid email address' });
+    }
+    else if (!validatePassword(formData.password)) {
+      setValidationMessages({ password: 'password should have atleast 1 capital letter, 1 numeric and 1  special character' });
     } 
     else {
       history(`/Todo-list?name=${formData.firstName}`);
@@ -69,7 +69,7 @@ const SignupForm = () => {
           <TextField variant="outlined" label="Email" name="email" required sx={{ m: 1, width: '43ch' }} value={formData.email}
             onChange={handleChange} error={validationMessages.email && isSubmitted} helperText={validationMessages.email} />
           <TextField variant="outlined" label="Password" name="password" required type="password" sx={{ m: 1, width: '43ch' }}
-            value={formData.password} onChange={handleChange}/>
+            value={formData.password} onChange={handleChange}  error={validationMessages.password && isSubmitted} helperText={validationMessages.password}/>
           
           <Button type="submit" variant="contained" color="primary" className="text-center" sx={{ mt: 3, width: '48ch' }}>Login</Button>
         </form>
