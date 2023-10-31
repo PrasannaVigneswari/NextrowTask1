@@ -3,7 +3,7 @@ import { Button, Avatar, Typography, Grid, TextField } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../../utils/validation';
- 
+
 const SignupForm = () => {
   
   const [formData, setFormData] = useState({
@@ -12,13 +12,10 @@ const SignupForm = () => {
     email: '',
     password: '',
   });
-
   const [validationMessages, setValidationMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-
    // Router navigation
   const history = useNavigate();
-
   // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,8 +24,11 @@ const SignupForm = () => {
       [name]: value,
     });
   };
-
-
+  const validateEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i; //emailRegex is a regular expression that matches common email address patterns.
+  
+    return emailRegex.test(email);
+  }; // If the email matches the pattern, test returns true Otherwise, it returns false.
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
@@ -43,20 +43,18 @@ const SignupForm = () => {
     } 
     else {
       history(`/Todo-list?name=${formData.firstName}`);
-  
+
+     // If the email address is valid, navigate to the Todo-list page with the user's first name.
     }
   };
 
   return (
-
     <>
       <Grid container direction="column" alignItems="center">
         <Avatar sx={{ height: '40px', bgcolor: 'secondary.main', width: '40px', marginTop: '67px' }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography variant="h5" marginTop="20px">
-          Sign in
-        </Typography>
+        <Typography variant="h5" marginTop="20px"> Sign in</Typography>
       </Grid>
 
       <div className="mt-5 mx-auto max-w max-w-sm">
@@ -74,12 +72,10 @@ const SignupForm = () => {
             value={formData.password} onChange={handleChange}  error={validationMessages.password && isSubmitted} helperText={validationMessages.password}/>
           
           <Button type="submit" variant="contained" color="primary" className="text-center" sx={{ mt: 3, width: '48ch' }}>Login</Button>
-        
         </form>
       </div>
     </>
   );
 };
-
 export default SignupForm;
 
