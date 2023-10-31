@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import {TextField,Button,List,ListItem,Checkbox,IconButton,} from "@mui/material";
@@ -7,6 +8,7 @@ const Todolist = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const name = searchParams.get("name");
+  
   const [idCounter, setIdCounter] = useState(0);
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
@@ -18,6 +20,7 @@ const Todolist = () => {
   useEffect(() => {
     if (localStorage.getItem("localTasks")) {
       const storedList = JSON.parse(localStorage.getItem("localTasks"));
+
       setTodos(storedList);
       setIdCounter(storedList.length);
     }
@@ -50,13 +53,11 @@ const Todolist = () => {
     };
 
     setTodos((prevTodos) => [...prevTodos, newTask]);
-    setNewTodo("");
-    setError("");
-
+    setNewTodo('');
+    setError('');
     setIdCounter(idCounter + 1);
     saveTasks([...todos, newTask]);
   };
-
   const toggleCompletion = (index) => {
     const updatedTodos = [...todos];
     updatedTodos[index].completed = !updatedTodos[index].completed;
@@ -137,11 +138,12 @@ const Todolist = () => {
                 title="Confirm Deletion"
                 content="Are you sure you want to delete this task?"
               />
-            </div>
+             </div>
           </ListItem>
         ))}
       </List>
-      <Button
+      
+     <Button
         variant="contained"
         sx={{ marginTop: "20px" }}
         onClick={clearTodos}
@@ -155,8 +157,6 @@ const Todolist = () => {
         title="Confirmation"
         content="Are you sure you want to clear?"
       />
-      <Button variant="outlined" sx={{ marginTop: "20px" }} 
-       onClick={handleClear}> clear</Button>
     </div>
   );
 }
