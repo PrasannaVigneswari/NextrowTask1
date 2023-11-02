@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Button, Avatar, Typography, Grid, TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
-import { validateEmail, validatePassword } from "../../utils/validation";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -26,21 +29,25 @@ const SignupForm = () => {
       [name]: value,
     });
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     setValidationMessages({});
 
+    const validateEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i; //emailRegex is a regular expression that matches common email address patterns.
+    // use .test(email) method checks if the provided email matches the regular expression pattern
+    return emailRegex.test(email);
+  }; //
+
     if (!validateEmail(formData.email)) {
-      setValidationMessages({ email: "Invalid email address" });
-    } else if (!validatePassword(formData.password)) {
-      setValidationMessages({
-        password:
-          "password should have atleast 1 capital letter, 1 numeric and 1  special character",
-      });
+      //check Email adress is valid or not
+      setValidationMessages({ email: "Invalid email address" }); // Set an error message for the email field.
     } else {
       history(`/Todo-list?name=${formData.firstName}`);
+      // If the email address is valid, navigate to the Todo-list page with the user's first name.
     }
   };
 
@@ -112,8 +119,6 @@ const SignupForm = () => {
             sx={{ m: 1, width: "43ch" }}
             value={formData.password}
             onChange={handleChange}
-            error={validationMessages.password && isSubmitted}
-            helperText={validationMessages.password}
           />
 
           <Button
