@@ -15,5 +15,4 @@ const ConfirmationDialog = ({open, onClose, onConfirm, title, content,}) => {
     </Dialog>
   );
 };
-
-export default ConfirmationDialog;
+export default ConfirmationDialog
