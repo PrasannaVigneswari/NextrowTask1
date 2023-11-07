@@ -4,6 +4,7 @@ import ConfirmationDialog from '../utils/ConfirmationDialog';
 import { validateEmail } from '../utils/validation';
 import useLocalStorage from '../utils/useLocalStorage';
 
+
 const Profile = () => {
   const [user, setUser] = useState({
     firstName: '',
@@ -126,4 +127,7 @@ const Profile = () => {
   );
 };
 
+
 export default Profile;
+
+

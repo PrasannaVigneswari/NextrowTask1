@@ -21,10 +21,10 @@ const SignupForm = () => {
   const [validationMessages, setValidationMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Router navigation
+
   const history = useNavigate();
 
-  // Function to handle form input changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -40,8 +40,10 @@ const SignupForm = () => {
     setValidationMessages({});
 
     if (!validateEmail(formData.email)) {
+
       //check Email adress is valid or not
       setValidationMessages({ email: "Invalid email address" }); // Set an error message for the email field.
+
     } else if (!validatePassword(formData.password)) {
       setValidationMessages({
         password:
@@ -57,7 +59,7 @@ const SignupForm = () => {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
-      });
+      }
       history(`/Todo-list?name=${formData.firstName}`);
     }   
       

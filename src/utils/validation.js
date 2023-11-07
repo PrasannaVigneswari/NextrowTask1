@@ -10,4 +10,3 @@ export const validateEmail = (email) => {
     const specialCharacters = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/;
     return specialCharacters.test(password);
   };
-  

@@ -6,6 +6,7 @@ import {Menu as MenuIcon , Person as PersonIcon} from '@mui/icons-material';
   const Header = ({ name, toggleSidebar }) => {
     const handleMenuClick = () => {
       toggleSidebar(); // Call the toggleSidebar 
+
     };
   return (
     <AppBar position="static">
@@ -28,4 +29,6 @@ import {Menu as MenuIcon , Person as PersonIcon} from '@mui/icons-material';
   );
 };
 
+
 export default Header;
+
