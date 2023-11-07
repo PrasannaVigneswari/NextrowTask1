@@ -5,14 +5,18 @@ import { UserProvider } from "./utils/UserContext";
 
 function App() {
   return (
-
+    <>
     <UserProvider>
     <Routing />
-  </UserProvider>
 
-  );
+    </UserProvider>
+      
+    </>
+   );
 }
-
 export default App;
+
+   
+
 
 

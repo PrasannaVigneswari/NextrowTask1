@@ -8,6 +8,7 @@ import useLocalStorage from "../utils/useLocalStorage";
 
 
 const SignupForm = () => {
+
   const { setUser } = useUser();
   const [storedUser, setStoredUser] = useLocalStorage('user', null);
   const [formData, setFormData] = useState({
@@ -20,7 +21,8 @@ const SignupForm = () => {
   const [validationMessages, setValidationMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
- const history = useNavigate();
+
+  const history = useNavigate();
 
 
   const handleChange = (e) => {
@@ -31,13 +33,17 @@ const SignupForm = () => {
     });
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     setValidationMessages({});
 
     if (!validateEmail(formData.email)) {
-      setValidationMessages({ email: "Invalid email address" });
+
+      //check Email adress is valid or not
+      setValidationMessages({ email: "Invalid email address" }); // Set an error message for the email field.
+
     } else if (!validatePassword(formData.password)) {
       setValidationMessages({
         password:
@@ -53,10 +59,12 @@ const SignupForm = () => {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
-      });
-       history(`/Todo-list?name=${formData.firstName}`);
-    }
+      }
+      history(`/Todo-list?name=${formData.firstName}`);
+    }   
+      
   };
+
   return (
     <>
       <Grid container direction="column" alignItems="center">
@@ -143,5 +151,7 @@ const SignupForm = () => {
     </>
   );
 };
-
 export default SignupForm;
+
+
+
