@@ -4,9 +4,8 @@ import {
   Person as PersonIcon,
   Assignment as SignupFormIcon,
   Settings as SettingsIcon,
-  ExitToApp as LogoutIcon,
+  ExitToApp as LogoutIcon,ListAlt as ListAltIcon
 } from "@mui/icons-material";
-import ListAltIcon from '@mui/icons-material/ListAlt';
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isOpen, onClose }) => {

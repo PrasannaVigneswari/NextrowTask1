@@ -1,10 +1,7 @@
 import React from "react";
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import PersonIcon from '@mui/icons-material/Person';
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import {Menu as MenuIcon , Person as PersonIcon} from '@mui/icons-material';
+
 
   const Header = ({ name, toggleSidebar }) => {
     const handleMenuClick = () => {
