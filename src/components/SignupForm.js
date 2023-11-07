@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { Button, Avatar, Typography, Grid, TextField } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
-import { validateEmail, validatePassword } from "../../utils/validation";
+import { validateEmail, validatePassword } from "../utils/validation";
+import { useUser } from "../utils/UserContext";
+import useLocalStorage from "../utils/useLocalStorage";
+
 
 const SignupForm = () => {
+  const { setUser } = useUser();
+  const [storedUser, setStoredUser] = useLocalStorage('user', null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -15,10 +20,9 @@ const SignupForm = () => {
   const [validationMessages, setValidationMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Router navigation
-  const history = useNavigate();
+ const history = useNavigate();
 
-  // Function to handle form input changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -33,19 +37,26 @@ const SignupForm = () => {
     setValidationMessages({});
 
     if (!validateEmail(formData.email)) {
-      //check Email adress is valid or not
-      setValidationMessages({ email: "Invalid email address" }); // Set an error message for the email field.
+      setValidationMessages({ email: "Invalid email address" });
     } else if (!validatePassword(formData.password)) {
       setValidationMessages({
         password:
-          "password should have atleast 1 capital letter, 1 numeric and 1  special character",
+          "Password should have at least 1 capital letter, 1 numeric, and 1 special character",
       });
     } else {
-      history(`/Todo-list?name=${formData.firstName}`);
-      // If the email address is valid, navigate to the Todo-list page with the user's first name.
+      setUser({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+      });
+      setStoredUser({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+      });
+       history(`/Todo-list?name=${formData.firstName}`);
     }
   };
-
   return (
     <>
       <Grid container direction="column" alignItems="center">
