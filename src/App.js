@@ -1,11 +1,16 @@
 import React from "react";
 import Routing from "./routes/Routing";
+import { UserProvider } from "./utils/UserContext";
 
 function App() {
   return (
     <>
-      <Routing />
+      <UserProvider>
+        <Routing />
+      </UserProvider>
     </>
-   );
+  );
 }
+
 export default App;
+

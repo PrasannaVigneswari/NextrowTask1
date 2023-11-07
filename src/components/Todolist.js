@@ -1,21 +1,25 @@
-
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import {TextField,Button,List,ListItem,Checkbox,IconButton,} from "@mui/material";
 import { AddCircle, Delete as DeleteIcon } from "@mui/icons-material";
-import ConfirmationDialog from "../../utils/ConfirmationDialog";
+import ConfirmationDialog from "../utils/ConfirmationDialog";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+import useLocalStorage from "../utils/useLocalStorage";
+
 const Todolist = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const name = searchParams.get("name");
   
   const [idCounter, setIdCounter] = useState(0);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useLocalStorage("todos", []);
   const [newTodo, setNewTodo] = useState("");
   const [error, setError] = useState("");
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =useState(false);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("localTasks")) {
@@ -24,7 +28,7 @@ const Todolist = () => {
       setTodos(storedList);
       setIdCounter(storedList.length);
     }
-  }, []);
+  }, [setTodos]);
 
   const saveTasks = (tasks) => {
     localStorage.setItem("localTasks", JSON.stringify(tasks));
@@ -88,13 +92,15 @@ const Todolist = () => {
     localStorage.removeItem("localTasks");
     setIsConfirmationDialogOpen(false);
   };
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
 
   return (
+    <>        
+    <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <Header name={name} toggleSidebar={toggleSidebar} />
     <div className="p-10 h-screen">
-      <h1 className="text-4xl font-serif font-semibold text-sky-800 text-center">
-        Hi,{name}
-      </h1>
-      <h1 className="text-4xl text-center font-serif mt-8">Todos</h1>
       <h2 className="text-3xl mt-10">Create Task</h2>
       <div className="flex gap-4 mt-10">
         <TextField
@@ -147,6 +153,7 @@ const Todolist = () => {
         variant="contained"
         sx={{ marginTop: "20px" }}
         onClick={clearTodos}
+        disabled={todos.length === 0}
       >
         Clear
       </Button>
@@ -158,6 +165,7 @@ const Todolist = () => {
         content="Are you sure you want to clear?"
       />
     </div>
+    </>
   );
 }
 export default Todolist;
