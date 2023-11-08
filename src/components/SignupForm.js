@@ -3,10 +3,12 @@ import { Button, Avatar, Typography, Grid, TextField } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../utils/validation";
-
-
+import { useUser } from "../utils/UserContext";
+import useLocalStorage from "../utils/useLocalStorage";
 
 const SignupForm = () => {
+  const { setUser } = useUser();
+  const [storedUser, setStoredUser] = useLocalStorage("user", null);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -18,9 +20,7 @@ const SignupForm = () => {
   const [validationMessages, setValidationMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-
   const history = useNavigate();
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,27 +30,33 @@ const SignupForm = () => {
     });
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     setValidationMessages({});
 
     if (!validateEmail(formData.email)) {
-
       //check Email adress is valid or not
       setValidationMessages({ email: "Invalid email address" }); // Set an error message for the email field.
-
     } else if (!validatePassword(formData.password)) {
       setValidationMessages({
         password:
           "Password should have at least 1 capital letter, 1 numeric, and 1 special character",
       });
     } else {
-     
+      setUser({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+      });
+      setStoredUser({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+      });
+
       history(`/Todo-list?name=${formData.firstName}`);
-    }   
-      
+    }
   };
 
   return (
@@ -140,6 +146,3 @@ const SignupForm = () => {
   );
 };
 export default SignupForm;
-
-
-

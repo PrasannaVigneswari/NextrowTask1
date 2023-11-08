@@ -1,21 +1,31 @@
-import React from 'react';
+import React from "react";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Button,DialogContentText
-} from '@mui/material';
+  Button,
+  DialogContentText,
+} from "@mui/material";
 
-const ConfirmationDialog = ({open, onClose, onConfirm, title, content}) => {
-
+const ConfirmationDialog = ({
+  open,
+  onClose,
+  onConfirm,
+  title,
+  content,
+  children,
+}) => {
   return (
-    <Dialog open={open} onClose={onClose} sx={{ maxWidth: '400px', margin: 'auto' }}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      sx={{ maxWidth: "400px", margin: "auto" }}
+    >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{content}</DialogContentText>
-
-
+        <DialogContent>{children}</DialogContent>
       </DialogContent>
 
       <DialogActions>
