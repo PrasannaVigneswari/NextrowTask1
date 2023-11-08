@@ -7,7 +7,7 @@ import {
   Button,DialogContentText
 } from '@mui/material';
 
-const ConfirmationDialog = ({open, onClose, onConfirm, title, content, children}) => {
+const ConfirmationDialog = ({open, onClose, onConfirm, title, content}) => {
 
   return (
     <Dialog open={open} onClose={onClose} sx={{ maxWidth: '400px', margin: 'auto' }}>
@@ -15,7 +15,7 @@ const ConfirmationDialog = ({open, onClose, onConfirm, title, content, children}
       <DialogContent>
         <DialogContentText>{content}</DialogContentText>
 
-        <DialogContent >{children}</DialogContent>
+
       </DialogContent>
 
       <DialogActions>

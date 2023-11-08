@@ -2,24 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import {TextField,Button,List,ListItem,Checkbox,IconButton,} from "@mui/material";
 import { AddCircle, Delete as DeleteIcon } from "@mui/icons-material";
-
 import ConfirmationDialog from "../utils/ConfirmationDialog";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import useLocalStorage from "../utils/useLocalStorage";
+
 const Todolist = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const name = searchParams.get("name");
 
   const [idCounter, setIdCounter] = useState(0);
-  const [todos, setTodos] = useLocalStorage("todos", []);
+  const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
   const [error, setError] = useState("");
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =useState(false);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
 
 
   useEffect(() => {
@@ -32,15 +29,6 @@ const Todolist = () => {
   }, []);
 
  
-
-  // Load tasks from local storage
-  useEffect(() => {
-    if (localStorage.getItem("localTasks")) {
-      const storedList = JSON.parse(localStorage.getItem("localTasks"));
-      setTodos(storedList);
-      setIdCounter(storedList.length);
-    }
-  }, [setTodos]);
 
   // Save tasks to local storage
   const saveTasks = (tasks) => {
@@ -78,12 +66,7 @@ const Todolist = () => {
     saveTasks([...todos, newTask]);
   };
 
-  // Handle changes in the new task input
-  const handleNewTodoChange = (e) => {
-    setNewTodo(e.target.value);
-    setError("");
-  };
-
+  
   // Toggle task completion
   const toggleCompletion = (index) => {
     const updatedTodos = [...todos];
@@ -116,16 +99,14 @@ const Todolist = () => {
     setIsConfirmationDialogOpen(false);
   };
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
 
   return (
-<>
-        
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <Header name={name} toggleSidebar={toggleSidebar} />
+             
       <div className="p-10 h-screen">
+       <h1 className="text-4xl font-serif font-semibold text-sky-800 text-center">
+        Hi,{name}
+      </h1>
+      <h1 className="text-4xl text-center font-serif mt-8">Todos</h1>  
 
       <h2 className="text-3xl mt-10">Create Task</h2>
       <div className="flex gap-4 mt-10">
@@ -133,7 +114,6 @@ const Todolist = () => {
           label="Add a new todo"
           sx={{ width: "350px" }}
           variant="outlined"
-
           value={newTodo}
           onChange={handleNewTodoChange}
         />
@@ -154,7 +134,7 @@ const Todolist = () => {
           <ListItem
             key={todo.id}
             className={`flex items-center bg-cyan-100 mt-4 shadow-md rounded max-w-screen-sm`}
-            className="flex items-center bg-cyan-100 rounded mt-5 shadow-md max-w-screen-sm"
+            >
           
             <Checkbox
               onClick={() => toggleCompletion(index)}
@@ -196,7 +176,7 @@ const Todolist = () => {
         content="Are you sure you want to clear?"
       />
     </div>
-    </>
+    
   );
 }
 export default Todolist;

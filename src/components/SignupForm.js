@@ -3,14 +3,11 @@ import { Button, Avatar, Typography, Grid, TextField } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../utils/validation";
-import { useUser } from "../utils/UserContext";
-import useLocalStorage from "../utils/useLocalStorage";
+
 
 
 const SignupForm = () => {
 
-  const { setUser } = useUser();
-  const [storedUser, setStoredUser] = useLocalStorage('user', null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -50,16 +47,7 @@ const SignupForm = () => {
           "Password should have at least 1 capital letter, 1 numeric, and 1 special character",
       });
     } else {
-      setUser({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-      });
-      setStoredUser({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-      }
+     
       history(`/Todo-list?name=${formData.firstName}`);
     }   
       
