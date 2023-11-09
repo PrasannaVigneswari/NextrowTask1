@@ -17,6 +17,7 @@ import ConfirmationDialog from "../utils/ConfirmationDialog";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import useLocalStorage from "../utils/useLocalStorage";
+import useSidebar from "../utils/UseSlidebar";
 
 const Todolist = () => {
   const location = useLocation();
@@ -33,7 +34,7 @@ const Todolist = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editContent, setEditContent] = useState("");
   const [editConfirmationOpen, setEditConfirmationOpen] = useState(false);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const { isSidebarOpen, toggleSidebar } = useSidebar(); 
 
   useEffect(() => {
     if (localStorage.getItem("localTasks")) {
@@ -151,16 +152,10 @@ const Todolist = () => {
       saveTasks(updatedTodos);
     }
   };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
-
-  return (
+ return (
     <>
       <Header name={name} toggleSidebar={toggleSidebar} />
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       <div className="p-10 h-screen ">
         <h2 className="text-3xl mt-10">Create Task</h2>
         <div className="flex gap-4 mt-10">
@@ -224,7 +219,7 @@ const Todolist = () => {
                         onChange={(e) => setEditContent(e.target.value)}
                       />
                       {error && <p className="text-red-500 mt-2">{error}</p>}{" "}
-                      {/* Display error message */}
+                      
                     </>
                   }
                 />

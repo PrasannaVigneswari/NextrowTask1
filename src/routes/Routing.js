@@ -4,6 +4,7 @@ import SignupForm from "../components/SignupForm";
 import Todolist from "../components/Todolist";
 import Profile from "../components/Profile";
 import Logout from "../components/Logout";
+import Setting from "../components/Setting";
 
 const Routing = () => {
   return (
@@ -14,7 +15,8 @@ const Routing = () => {
           <Route path="/Todo-list" element={<Todolist />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Logout" element={<Logout />} />
-        </Routes>
+          <Route path="/Setting" element={<Setting />} />
+        </Routes> 
       </Router>
     </>
   );

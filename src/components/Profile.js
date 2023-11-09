@@ -5,6 +5,7 @@ import { validateEmail } from "../utils/validation";
 import useLocalStorage from "../utils/useLocalStorage";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import useSidebar from "../utils/UseSlidebar";
 
 const Profile = () => {
   const [user, setUser] = useState({
@@ -18,25 +19,24 @@ const Profile = () => {
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [storedUser, setStoredUser] = useLocalStorage("user", user);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
 
   const handleOpen = () => {
     setEditedUser({ ...user });
     setOpen(true);
   };
 
-  
   const handleInputChange = (e) => {
     const fieldName = e.target.name; // Get the field name from the input element
     const value = e.target.value;
-  
+
     setEditedUser({
       ...editedUser,
       [fieldName]: value,
     });
   };
-  
-    const handleClose = () => {
+
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -75,16 +75,12 @@ const Profile = () => {
       setUser(storedUser);
     }
   }, [storedUser]);
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
 
   return (
     <>
-    
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
       <Header name={user.firstName} toggleSidebar={toggleSidebar} />
-     
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
+
       <div className="h-screen flex flex-col items-center justify-start p-28">
         <Card
           className="w-96 p-4 rounded flex flex-col items-center justify-start "
@@ -114,40 +110,39 @@ const Profile = () => {
         >
           <div>
             <form>
-            <TextField
-              label="First Name"
-              variant="outlined"
-              fullWidth
-              name="firstName"
-              value={editedUser.firstName}
-              onChange={handleInputChange}
-              error={!!firstNameError}
-              helperText={firstNameError}
-              sx={{ padding: "6px", margin: "6px" }}
-            />
-            <TextField
-              label="Last Name"
-              variant="outlined"
-              name="lastName"
-              fullWidth
-              value={editedUser.lastName}
-              onChange={handleInputChange
-              }
-              error={!!lastNameError}
-              helperText={lastNameError}
-              sx={{ padding: "6px", margin: "6px" }}
-            />
-            <TextField
-              label="Email"
-              variant="outlined"
-              name="email"
-              fullWidth
-              value={editedUser.email}
-              onChange={handleInputChange}
-              error={!!emailError}
-              helperText={emailError}
-              sx={{ padding: "6px", margin: "6px" }}
-            />
+              <TextField
+                label="First Name"
+                variant="outlined"
+                fullWidth
+                name="firstName"
+                value={editedUser.firstName}
+                onChange={handleInputChange}
+                error={!!firstNameError}
+                helperText={firstNameError}
+                sx={{ padding: "6px", margin: "6px" }}
+              />
+              <TextField
+                label="Last Name"
+                variant="outlined"
+                name="lastName"
+                fullWidth
+                value={editedUser.lastName}
+                onChange={handleInputChange}
+                error={!!lastNameError}
+                helperText={lastNameError}
+                sx={{ padding: "6px", margin: "6px" }}
+              />
+              <TextField
+                label="Email"
+                variant="outlined"
+                name="email"
+                fullWidth
+                value={editedUser.email}
+                onChange={handleInputChange}
+                error={!!emailError}
+                helperText={emailError}
+                sx={{ padding: "6px", margin: "6px" }}
+              />
             </form>
           </div>
         </ConfirmationDialog>
